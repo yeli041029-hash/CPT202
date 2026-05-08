@@ -1,0 +1,345 @@
+/* Global Styles */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body { 
+    font-family: "Microsoft YaHei", "Segoe UI", serif; 
+    background: #F8F5F0; 
+    color: #3A2618; 
+}
+
+.container { 
+    width: 90%; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+/* Navigation Bar */
+header { 
+    background: #fff; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    padding: 1rem 0; 
+}
+
+.navbar { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.logo { 
+    font-size: 1.8rem; 
+    font-weight: bold; 
+    color: #C41E3A; 
+}
+
+.nav-menu { 
+    display: flex; 
+    gap: 2rem; 
+}
+
+.nav-menu a { 
+    text-decoration: none; 
+    color: #3A2618; 
+    font-weight: 500; 
+    transition: 0.3s; 
+}
+
+.nav-menu a:hover { 
+    color: #C41E3A; 
+}
+
+.nav-actions { 
+    display: flex; 
+    gap: 1rem; 
+    align-items: center; 
+}
+
+.search-box { 
+    padding: 0.5rem 1rem; 
+    border: 2px solid #D4AF37; 
+    border-radius: 20px; 
+    background: #fff; 
+    outline: none; 
+}
+
+/* New User Profile Image Style */
+.user-avatar { 
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 2px solid #D4AF37; 
+    cursor: pointer; 
+    transition: transform 0.3s; 
+}
+
+.user-avatar:hover { 
+    transform: scale(1.1); 
+}
+
+/* =========================================
+   头像下拉菜单样式 (Avatar Dropdown Menu)
+   ========================================= */
+.user-menu-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    /* 确保头像和搜索框对齐 */
+    vertical-align: middle; 
+}
+
+/* 确保头像显示为圆形且美观（如果你的css里已经有了，这部分可以省略） */
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 下拉菜单主体：默认隐藏 */
+.dropdown-menu {
+    visibility: hidden; /* 使用 visibility 和 opacity 让出现时有过渡动画 */
+    opacity: 0;
+    position: absolute;
+    top: calc(100% + 10px); /* 定位在头像正下方，留出 10px 的间距 */
+    right: 0; /* 下拉菜单靠右对齐 */
+    background-color: #ffffff;
+    min-width: 200px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* 添加立体阴影 */
+    border-radius: 8px; /* 圆角设计 */
+    padding: 8px 0;
+    list-style: none;
+    z-index: 1000; /* 保证在最上层不会被其他内容遮挡 */
+    transition: all 0.3s ease; /* 柔和的淡入动画 */
+}
+
+/* 隐形的桥梁：防止鼠标从头像移到菜单中间的空隙时菜单消失 */
+.user-menu-container::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 15px; /* 填补头像和下拉菜单之间的空隙 */
+}
+
+/* 鼠标悬停在容器上时，显示下拉菜单 */
+.user-menu-container:hover .dropdown-menu {
+    visibility: visible;
+    opacity: 1;
+    top: calc(100% + 15px); /* 悬浮时稍微往下移动一点点，产生动态效果 */
+}
+
+/* 下拉菜单里的链接样式 */
+.dropdown-menu li a {
+    color: #333333;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/* 鼠标悬停在菜单某一项上的效果 */
+.dropdown-menu li a:hover {
+    background-color: #f5f5f5; /* 浅灰色背景 */
+    color: #d4af37; /* 变成金色（如果你平台的主题色是其他颜色可以修改这里） */
+}
+
+/* 添加一个指向头像的小三角（可选，让UI更精致） */
+.dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    right: 12px; /* 小三角对齐头像中心 */
+    border-width: 0 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent #ffffff transparent;
+}
+
+/* =========================================
+   About 页面专属板块样式
+   ========================================= */
+
+/* 1. Hero Section (类比 Home Banner) */
+.about-hero {
+    height: 400px;
+    background: url('../Resources/image/IMG_1111.JPG') center/cover no-repeat fixed; /* 视差效果 */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+}
+
+.about-hero h1 {
+    font-size: 3.5rem;
+    color: #D4AF37; /* 金色标题 */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin-bottom: 10px;
+}
+
+/* 2. Story Section */
+.story-section { padding: 5rem 0; }
+
+.story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.sub-title { 
+    font-size: 2.5rem; 
+    color: #C41E3A; 
+    margin-bottom: 1.5rem; 
+}
+
+.story-text p {
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 1.2rem;
+}
+
+.story-image img {
+    width: 100%;
+    border-radius: 10px;
+    border: 2px solid #D4AF37;
+    box-shadow: 15px 15px 0px rgba(212, 175, 55, 0.2); /* 金色阴影 */
+}
+
+/* 3. Tech Pillars (类比 Home Features) */
+.tech-pillars {
+    background-color: #fff;
+    padding: 5rem 0;
+    text-align: center;
+}
+
+.section-title { 
+    font-size: 2.2rem; 
+    color: #C41E3A; 
+    margin-bottom: 3rem; 
+}
+
+.pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.pillar-card {
+    background: #F8F5F0;
+    padding: 3rem 2rem;
+    border: 1px solid #D4AF37;
+    border-radius: 10px;
+    transition: all 0.4s ease;
+}
+
+.pillar-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.pillar-icon { font-size: 3rem; margin-bottom: 1.5rem; display: block; }
+
+.pillar-card h3 { color: #3A2618; margin-bottom: 1rem; }
+
+/* 4. Impact Stats (数据展示) */
+.impact-section {
+    background: #3A2618; /* 深色背景 */
+    color: #fff;
+    padding: 4rem 0;
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+}
+
+.stat-num-row {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #D4AF37; /* 金色数字 */
+}
+
+.stat-label {
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    margin-top: 0.5rem;
+    display: block;
+    color: #F8F5F0;
+}
+
+/* 5. CTA Section */
+.about-cta {
+    padding: 6rem 0;
+    text-align: center;
+}
+
+.btn-primary {
+    display: inline-block;
+    background: #C41E3A;
+    color: #fff;
+    padding: 1rem 3rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+    margin-top: 2rem;
+}
+
+.btn-primary:hover {
+    background: #D4AF37;
+    transform: scale(1.05);
+}
+
+/* =========================================
+   Footer (完全同步 Home)
+   ========================================= */
+footer { 
+    background: #3A2618; 
+    color: #fff; 
+    padding: 2rem 0; 
+    text-align: center; 
+    font-size: 0.9rem; 
+}
+
+/* =========================================
+   滚动动效 (Reveal Animations)
+   ========================================= */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+    .story-grid, .pillar-grid, .impact-grid {
+        grid-template-columns: 1fr;
+    }
+    .about-hero h1 { font-size: 2.5rem; }
+}

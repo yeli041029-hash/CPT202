@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Heritage Exhibition Platform - Home</title>
+    <link rel="stylesheet" href="../CSS/home.css">
+    <link rel="stylesheet" href="../CSS/common.css">
+    <!-- 3D viewer -->
+    <script type="module" src="../JS/model-viewer.min.js?v=20260421-local-3d"></script>
+</head>
+<body>
+    <header>
+        <div class="container navbar">
+            <div class="logo">Heritage Platform</div>
+            <nav class="nav-menu">
+                <a href="home.html">Home</a>
+                <a href="search.html">Cultural Heritage</a>
+                <a href="resource.html">Community</a>
+                <a href="about.html">About Us</a>
+            </nav>
+            <div class="nav-actions">
+                <div class="user-menu-container">
+                    <img src="../Resources/image/IMG_1113.JPG" alt="User Profile" class="user-avatar">
+                    <ul class="dropdown-menu">
+                        <li><a href="modify.html">Edit Profile</a></li> 
+                        <li><a href="submission.html">Application Management</a></li> 
+                        <li><a href="contributor.html">Audit & Review</a></li> 
+                        <li class="menu-divider"></li>
+                        <li><a href="welcome.html" class="logout-link">Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner Carousel -->
+    <section class="banner">
+        <div class="banner-overlay">
+            <div class="banner-text">Preserving Millennia of History · Touching the Soul of Culture</div>
+        </div>
+    </section>
+
+    <section class="features container">
+        <a href="search.html" class="feature-link">
+            <div class="feature-card">
+                <i>📚</i>
+                <h3>Heritage Archive</h3>
+                <p>Explore diverse cultural heritages and delve into their history and craftsmanship.</p>
+            </div>
+        </a>
+
+        <a href="resource.html" class="feature-link">
+            <div class="feature-card">
+                <i>💬</i>
+                <h3>Interactive Community</h3>
+                <p>Join discussions, share cultural insights, and connect with fellow enthusiasts.</p>
+            </div>
+        </a>
+
+        <!-- 3. 跳转到注�?欢迎�?(或指定页�? -->
+        <a href="apply.html?v=20260421a" class="feature-link">
+            <div class="feature-card">
+                <i>📝</i>
+                <h3>Member Registration</h3>
+                <p>Register as a member to unlock exclusive interactive features and privileges.</p>
+            </div>
+        </a>
+    </section>
+
+    <section class="container exhibition-3d">
+        <h2 class="section-title">Digital Relic: 3D Interactive Gallery</h2>
+        <div class="viewer-container">
+            <div class="viewer-left">
+                <button id="prevModelBtn" class="nav-btn prev-btn">&#10094;</button>
+                
+                <model-viewer 
+                    id="main3DViewer"
+                    src="../Resources/gbl/porcelain_china_vase.glb" 
+                    alt="3D Cultural Relic" 
+                    auto-rotate 
+                    camera-controls 
+                    ar 
+                    shadow-intensity="1.5"
+                    exposure="1.2">
+                </model-viewer>
+                <img
+                    id="fallback3DImage"
+                    data-src="../Resources/image/heritage1.JPG"
+                    alt="Artifact preview"
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="low"
+                    style="display:none; width:100%; height:500px; object-fit:cover;"
+                >
+                
+                <button id="nextModelBtn" class="nav-btn next-btn">&#10095;</button>
+            </div>
+            <div class="viewer-info" id="viewerInfoText">
+                <h3 id="modelTitle">Blue and White Porcelain</h3>
+                <p id="modelDesc">An exquisite masterpiece of ancient Chinese ceramic art. Known for its underglaze blue decoration, this vase features intricate traditional patterns.</p>
+                <p><strong>Interaction:</strong> Use your mouse to rotate (left-click) and zoom (scroll) to appreciate the delicate craftsmanship in 360 degrees.</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- 1. 修改卡片部分：添�?data-video 属�?-->
+    <section class="heritage-recommend container">
+        <h2 class="section-title">Community Heritage</h2>
+        <div class="heritage-grid">
+            <!-- 醒狮卡片 -->
+            <div class="heritage-card" data-audio="audio-lion" data-video="../Resources/video/lion_dance_video.mp4">
+                <img src="../Resources/image/lion_dance.JPG" alt="Cantonese Lion Dance" loading="lazy" decoding="async" fetchpriority="low">
+                <div class="heritage-info">
+                    <h4>Cantonese Lion Dance</h4>
+                    <p>Click to watch the vibrant community tradition...</p>
+                </div>
+            </div>
+
+            <!-- 皮影戏卡�?-->
+            <div class="heritage-card" data-audio="audio-shadow" data-video="../Resources/video/shadow_puppet.mp4">
+                <img src="../Resources/image/shadow_puppet.JPG" alt="Chinese Shadow Puppetry" loading="lazy" decoding="async" fetchpriority="low">
+                <div class="heritage-info">
+                    <h4>Shadow Puppetry</h4>
+                    <p>Click to watch the ancient storytelling art...</p>
+                </div>
+            </div>
+
+            <!-- 剪纸卡片 (也可以加上视�? -->
+            <div class="heritage-card" data-audio="audio-paper" data-video="../Resources/video/paper_cutting_video.mov">
+                <img src="../Resources/image/heritage3.JPG" alt="Paper Cutting" loading="lazy" decoding="async" fetchpriority="low">
+                <div class="heritage-info">
+                    <h4>Traditional Paper Cutting</h4>
+                    <p>Click to watch the exquisite scissor art...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. 在页面末尾添加视频弹窗组�?-->
+    <div id="videoModal" class="video-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <video id="modalVideo" controls>
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <script src="../JS/session.js?v=20260422-remove-switch-identity"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const viewer = document.getElementById('main3DViewer');
+            const fallback = document.getElementById('fallback3DImage');
+
+            if (!viewer || !fallback) {
+                return;
+            }
+
+            function ensureFallbackSource() {
+                if (fallback.dataset.src && !fallback.getAttribute('src')) {
+                    fallback.src = fallback.dataset.src;
+                }
+            }
+
+            function showFallback() {
+                ensureFallbackSource();
+                fallback.style.display = 'block';
+                viewer.style.display = 'none';
+            }
+
+            function hideFallback() {
+                fallback.style.display = 'none';
+                viewer.style.display = 'block';
+            }
+
+            viewer.addEventListener('load', hideFallback);
+            viewer.addEventListener('error', showFallback);
+
+            if ('requestIdleCallback' in window) {
+                window.requestIdleCallback(ensureFallbackSource, { timeout: 2000 });
+            } else {
+                window.addEventListener('load', ensureFallbackSource, { once: true });
+            }
+
+            window.setTimeout(function () {
+                if (!window.customElements || !window.customElements.get('model-viewer')) {
+                    showFallback();
+                }
+            }, 2500);
+        });
+    </script>
+    <script src="../JS/home.js?v=20260422-application-notice"></script>
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,194 @@
+:root {
+    --gold: #c5a059;
+    --dark: #1a1a1a;
+    --cream: #f9f7f2;
+    --red: #C41E3A;
+}
+
+body {
+    background-color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    margin: 0;
+}
+
+/* --- 全屏布局 --- */
+.editorial-wrapper {
+    min-height: 100vh;
+    padding: 100px 5%;
+    display: flex;
+    justify-content: center;
+}
+
+.submission-grid {
+    max-width: 1300px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 80px;
+}
+
+/* --- 左侧索引面板 --- */
+.index-panel {
+    border-right: 1px solid rgba(0,0,0,0.05);
+    padding-right: 40px;
+}
+
+.eyebrow {
+    color: var(--gold);
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.panel-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    margin: 10px 0 40px;
+}
+
+.section-title {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    color: #999;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.count { color: var(--gold); }
+
+/* 修订卡片细节 */
+.item-card {
+    background: white;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    margin-bottom: 40px;
+}
+
+.urgent-card .card-deco {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px; background: var(--red);
+}
+
+.item-card h4 { font-size: 1rem; margin-bottom: 10px; }
+.feedback { font-size: 0.8rem; color: #666; font-style: italic; margin-bottom: 15px; }
+
+/* 草稿列表 */
+.draft-list { list-style: none; padding: 0; }
+.draft-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.draft-info h4 { font-size: 0.9rem; margin: 0; }
+.draft-info span { font-size: 0.7rem; color: #999; }
+
+/* --- 右侧主表单 --- */
+.form-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    line-height: 1;
+    margin-bottom: 60px;
+}
+
+.form-header h1 i { color: var(--gold); font-family: 'Playfair Display', italic; }
+
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 40px 30px;
+}
+
+.span-8 { grid-column: span 8; }
+.span-4 { grid-column: span 4; }
+.span-6 { grid-column: span 6; }
+.span-12 { grid-column: span 12; }
+
+.input-field {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+    transition: 0.4s;
+}
+
+.input-field:focus-within { border-bottom-color: var(--gold); }
+
+.input-field label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #999;
+    text-transform: uppercase;
+}
+
+.input-field input, .input-field select, .input-field textarea {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 1.1rem;
+    padding: 10px 0;
+    outline: none;
+}
+
+/* 上传区 */
+.upload-zone {
+    margin: 60px 0;
+    padding: 30px;
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    background: white;
+}
+
+.upload-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.upload-box .hint { font-size: 0.75rem; color: #bbb; margin-top: 10px; }
+
+/* 底部操作 */
+.form-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.btn-primary-capsule {
+    background: var(--dark);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-primary-capsule:hover { background: var(--gold); transform: translateY(-3px); }
+
+.btn-text-only {
+    background: none; border: none; font-weight: bold; font-size: 0.8rem;
+    letter-spacing: 1px; cursor: pointer; color: #999;
+}
+
+.btn-text-only:hover { color: var(--dark); }
+
+/* --- 返回键 (复用之前的设计) --- */
+.premium-back-btn {
+    position: fixed; top: 40px; left: 40px; z-index: 1000;
+    text-decoration: none; background: white;
+    padding: 10px 25px; border-radius: 50px;
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: 0.4s;
+}
+
+.premium-back-btn:hover { background: var(--gold); border-color: var(--gold); }
+.btn-inner { display: flex; align-items: center; gap: 10px; color: var(--dark); font-weight: bold; font-size: 0.8rem; }
+.premium-back-btn:hover .btn-inner { color: white; }

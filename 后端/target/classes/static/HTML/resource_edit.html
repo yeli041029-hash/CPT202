@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Resource</title>
+    <link rel="stylesheet" href="../CSS/resource_edit.css?v=20260426-file-remove-v2">
+</head>
+<body class="edit-page-bg">
+
+    <div class="back-nav">
+        <a href="resource.html" class="back-btn">
+            <span class="arrow">&larr;</span> Back to Community
+        </a>
+    </div>
+
+    <main class="form-wrapper">
+        <h1>Create New Resource</h1>
+        <form id="resourceForm">
+            <label for="resourceTitle">Title</label>
+            <input type="text" id="resourceTitle" name="title" placeholder="Enter title..." required>
+
+            <label for="resourceImage">Files <small style="color:#8C745A; font-weight:normal;">(Images, Videos; Up to 10 files)</small></label>
+            <div class="file-input-wrapper" style="display:flex; align-items:center; gap:14px; padding:12px 16px; border-radius:10px; border:1px dashed #D4AF37; background:#fdfaf5;">
+                <input type="file" id="resourceImage" name="image" accept="image/*,video/*" multiple style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;">
+                <button type="button" id="resourceImageTrigger" style="display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:8px; border:1px solid #D4AF37; background:#fff; color:#3A2618; font-weight:600; white-space:nowrap; cursor:pointer;">Select Files</button>
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                    <span id="resourceImageStatus" style="color:#5B4630; font-size:0.92rem;">No file selected</span>
+                    <span id="resourceImageCount" style="color:#8C745A; font-size:0.8rem;">0 files selected</span>
+                    <div id="resourceImageList" class="upload-file-list" aria-live="polite"></div>
+                </div>
+            </div>
+
+            <label for="resourceDescription">Description</label>
+            <textarea
+                id="resourceDescription"
+                name="description"
+                placeholder="Enter description..."
+                required
+                oninput="autoResize(this)"
+            ></textarea>
+
+            <div style="margin-top:20px;">
+                <label for="resourceConfirm" style="display:flex; align-items:flex-start; gap:10px; font-weight:normal; margin:0; cursor:pointer;">
+                    <input type="checkbox" id="resourceConfirm" style="width:auto; margin-top:3px;">
+                    <span style="font-size:0.92rem; color:#5B4630;">I confirm the copyright ownership and agree to publish this content on the community page.</span>
+                </label>
+                <div id="resourceConfirmWarning" style="display:none; margin-top:8px; color:#C41E3A; font-size:0.82rem;">Please confirm the declaration before continuing.</div>
+            </div>
+
+            <button type="submit" class="publish-btn">Publish Resource</button>
+        </form>
+    </main>
+
+    <script src="../JS/api.js"></script>
+    <script src="../JS/session.js?v=20260422-remove-switch-identity"></script>
+    <script src="../JS/resource_edit.js?v=20260427-remove-pdf"></script>
+</body>
+</html>

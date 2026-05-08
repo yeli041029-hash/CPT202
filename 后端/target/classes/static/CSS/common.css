@@ -1,0 +1,234 @@
+/* Global Styles */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body { 
+    font-family: "Microsoft YaHei", "Segoe UI", serif; 
+    background: #F8F5F0; 
+    color: #3A2618; 
+}
+
+.container { 
+    width: 90%; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+/* Navigation Bar */
+header { 
+    background: #fff; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    padding: 1rem 0; 
+}
+
+.navbar { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.logo { 
+    font-size: 1.8rem; 
+    font-weight: bold; 
+    color: #C41E3A; 
+}
+
+.nav-menu { 
+    display: flex; 
+    gap: 2rem; 
+}
+
+.nav-menu a { 
+    text-decoration: none; 
+    color: #3A2618; 
+    font-weight: 500; 
+    transition: 0.3s; 
+}
+
+.nav-menu a:hover { 
+    color: #C41E3A; 
+}
+
+.nav-actions { 
+    display: flex; 
+    gap: 1rem; 
+    align-items: center; 
+}
+
+.search-box { 
+    padding: 0.5rem 1rem; 
+    border: 2px solid #D4AF37; 
+    border-radius: 20px; 
+    background: #fff; 
+    outline: none; 
+}
+
+/* New User Profile Image Style */
+.user-avatar { 
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 2px solid #D4AF37; 
+    cursor: pointer; 
+    transition: transform 0.3s; 
+}
+
+.user-avatar:hover { 
+    transform: scale(1.1); 
+}
+
+/* =========================================
+   头像下拉菜单样式 (Avatar Dropdown Menu)
+   ========================================= */
+.user-menu-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    /* 确保头像和搜索框对齐 */
+    vertical-align: middle; 
+}
+
+/* 确保头像显示为圆形且美观（如果你的css里已经有了，这部分可以省略） */
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 下拉菜单主体：默认隐藏 */
+.dropdown-menu {
+    visibility: hidden; /* 使用 visibility 和 opacity 让出现时有过渡动画 */
+    opacity: 0;
+    position: absolute;
+    top: calc(100% + 10px); /* 定位在头像正下方，留出 10px 的间距 */
+    right: 0; /* 下拉菜单靠右对齐 */
+    background-color: #ffffff;
+    min-width: 200px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* 添加立体阴影 */
+    border-radius: 8px; /* 圆角设计 */
+    padding: 8px 0;
+    list-style: none;
+    z-index: 1000; /* 保证在最上层不会被其他内容遮挡 */
+    transition: all 0.3s ease; /* 柔和的淡入动画 */
+}
+
+/* 隐形的桥梁：防止鼠标从头像移到菜单中间的空隙时菜单消失 */
+.user-menu-container::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 15px; /* 填补头像和下拉菜单之间的空隙 */
+}
+
+/* 鼠标悬停在容器上时，显示下拉菜单 */
+.user-menu-container:hover .dropdown-menu {
+    visibility: visible;
+    opacity: 1;
+    top: calc(100% + 15px); /* 悬浮时稍微往下移动一点点，产生动态效果 */
+}
+
+/* 下拉菜单里的链接样式 */
+.dropdown-menu li a {
+    color: #333333;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/* 鼠标悬停在菜单某一项上的效果 */
+.dropdown-menu li a:hover {
+    background-color: #f5f5f5; /* 浅灰色背景 */
+    color: #d4af37; /* 变成金色（如果你平台的主题色是其他颜色可以修改这里） */
+}
+
+/* 添加一个指向头像的小三角（可选，让UI更精致） */
+.dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    right: 12px; /* 小三角对齐头像中心 */
+    border-width: 0 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent #ffffff transparent;
+}
+
+/* 确保所有页面的主容器宽度一致 */
+.container {
+    width: 100%;
+    max-width: 1200px; /* 或者你 home 界面设定的数值，例如 1400px */
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* 导航栏基础布局 */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px; /* 匹配你 header 的高度 */
+}
+.menu-divider {
+    height: 1px;
+    margin: 8px 0;
+    background: rgba(58, 38, 24, 0.12);
+    list-style: none;
+}
+
+.role-switch-item {
+    padding: 10px 16px 12px;
+}
+
+.role-switch-label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+    color: #7D6244;
+}
+
+.role-switch-current {
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #3A2618;
+}
+
+.role-switch-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.role-switch-btn {
+    border: 1px solid rgba(212, 175, 55, 0.7);
+    background: #FFFAF0;
+    color: #3A2618;
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 11px;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.role-switch-btn:hover {
+    border-color: #C41E3A;
+    color: #C41E3A;
+}
+
+.role-switch-btn.is-active {
+    background: #C41E3A;
+    border-color: #C41E3A;
+    color: #fff;
+}

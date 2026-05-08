@@ -1,0 +1,227 @@
+/* -----------------------------------------
+   资源展示区专属样式 (使用 res- 前缀防止冲突)
+   ----------------------------------------- */
+
+/* 容器：去掉固定高度和内部滚动，让页面整体滚动，体验更好 */
+#resourceFeed {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 30px 0;
+    margin-top: 10px;
+}
+
+/* 资源卡片主体 */
+.res-post-card {
+    background-color: #fffdf8;
+    border: 2px solid #D4AF37;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.res-post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.12);
+}
+
+/* 卡片头部：用户信息 */
+.res-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 12px;
+}
+
+/* 这里的类名改为 res-user-img，避免与导航栏的 .user-avatar 冲突 */
+.res-user-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid #D4AF37;
+    object-fit: cover;
+}
+
+.res-user-name {
+    font-weight: bold;
+    color: #C41E3A;
+    font-size: 1rem;
+}
+
+.res-post-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #3A2618;
+    margin-bottom: 10px;
+}
+
+/* ----------------------
+   资源图片样式：精致小图模式
+---------------------- */
+
+/* 悬浮时轻微放大并加深阴影 */
+.res-post-image:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* 针对卡片内部文字的修改：使其铺满容器宽度 */
+.res-post-description {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 10px 0;
+    
+    /* 核心修改：去掉 max-width，改为 100% */
+    width: 100%;             
+    max-width: none;         /* 彻底移除 600px 的限制 */
+    
+    /* 进阶处理：让文字排版更整齐 */
+    text-align: justify;     /* 两端对齐，让文字像书刊一样整齐地铺满方框 */
+    word-wrap: break-word;   /* 自动换行，防止长英文单词撑破方框 */
+    overflow-wrap: break-word;
+    
+    /* 确保文字不会紧贴边缘，利用父级卡片的 padding */
+    display: block;
+}
+
+/* 资源图片样式保持（依然是精致小图） */
+.res-post-image {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 300px;        
+    max-height: 300px;       
+    object-fit: cover;       
+    border-radius: 8px;      
+    margin: 15px 0;          /* 图片上下留出间距 */
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.res-post-video {
+    display: block;
+    width: 100%;
+    max-width: 420px;
+    max-height: 320px;
+    margin: 15px 0;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: #000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.res-post-media-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 15px 0;
+}
+
+.res-post-media-grid .res-post-image {
+    margin: 0;
+    width: 220px;
+    max-width: calc(50% - 6px);
+    height: 220px;
+    object-fit: cover;
+    flex: 0 0 auto;
+}
+
+.res-post-media-grid .res-post-video {
+    margin: 0;
+    width: 220px;
+    max-width: calc(50% - 6px);
+    height: 220px;
+    flex: 0 0 auto;
+}
+
+/* 交互按钮区域 */
+.res-card-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 15px;
+}
+
+/* 专用按钮样式 res-btn */
+.res-btn {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1.5px solid #D4AF37;
+    background-color: transparent;
+    color: #3A2618;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.res-btn:hover {
+    background-color: #D4AF37;
+    color: #fff;
+}
+
+/* 评论区样式 */
+.res-comments-section {
+    margin-top: 15px;
+    background: #fdfaf5;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.res-comment-input {
+    width: 100%;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 0.85rem;
+    background-color: #fff;
+}
+
+.res-comment-input:focus {
+    border-color: #C41E3A;
+}
+
+/* -----------------------------------------
+   右下角悬浮发布按钮 (FAB)
+   ----------------------------------------- */
+.res-fab-container {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 999; /* 低于导航栏下拉菜单的 z-index */
+}
+
+.res-fab-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #C41E3A;
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(196, 30, 58, 0.4);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.res-fab-btn:hover {
+    transform: rotate(90deg) scale(1.1);
+    background-color: #942f36;
+}
+
+@media (max-width: 768px) {
+    .res-post-media-grid .res-post-image,
+    .res-post-media-grid .res-post-video {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+}

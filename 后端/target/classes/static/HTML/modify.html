@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Cultural Heritage Resource Sharing Platform - Personal Information</title>
+  <link rel="stylesheet" href="../CSS/modify.css">
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <div>
+        <p class="header__tag">Community Cultural Heritage Resource Sharing Platform</p>
+        <h1>Personal Information Management</h1>
+        <p class="header__desc">
+          This page is designed for normal users to update their personal details before joining
+          contributor-related workflows on the platform.
+        </p>
+      </div>
+      <div class="header__actions">
+        <button id="backButton" type="button" class="button button--back">Back</button>
+        <div id="storageStatus" class="header__status">Synced with database</div>
+      </div>
+    </header>
+
+    <main class="main">
+      <aside class="sidebar">
+        <section class="profile-card">
+          <div class="avatar-wrap">
+            <img id="avatarPreview" alt="Avatar preview">
+          </div>
+          <label class="avatar-button" for="avatarInput">Upload Avatar</label>
+          <input id="avatarInput" type="file" accept="image/*" hidden>
+
+          <h2 id="sidebarUsername">heritage_user</h2>
+          <p id="sidebarIdentity" class="profile-card__identity">Normal User</p>
+        </section>
+
+        <section class="info-card">
+          <h3>Platform Theme</h3>
+          <p>Community Cultural Heritage Resource Sharing Platform</p>
+        </section>
+
+        <section class="info-card">
+          <h3>Module Context</h3>
+          <p>Contributor Onboarding &amp; Permissions Module</p>
+          <p class="info-card__small">
+            Accurate personal information helps support user verification and contributor application management.
+          </p>
+        </section>
+      </aside>
+
+      <section class="content-card">
+        <div class="content-card__title">
+          <h2>Edit Profile</h2>
+          <p>Update your account information below. Changes are saved to your account when you click Save Changes.</p>
+        </div>
+
+        <form id="profileForm" class="profile-form">
+          <div class="form-grid">
+            <label class="field">
+              <span>Username</span>
+              <input id="username" name="username" type="text" placeholder="Enter username" required>
+            </label>
+
+            <label class="field">
+              <span>Identity</span>
+              <select id="identity" name="identity" required>
+                <option value="Normal User">Normal User</option>
+                <option value="Pending Applicant">Pending Applicant</option>
+                <option value="Contributor">Contributor</option>
+                <option value="Admin">Admin</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Email</span>
+              <input id="email" name="email" type="email" placeholder="Enter email" required>
+            </label>
+
+            <label class="field">
+              <span>Phone Number</span>
+              <input id="phone" name="phone" type="tel" placeholder="Enter phone number" required>
+            </label>
+
+            <label class="field field--full">
+              <span>Personal Bio</span>
+              <textarea
+                id="bio"
+                name="bio"
+                rows="5"
+                placeholder="Tell the platform something about yourself"
+                required
+              ></textarea>
+            </label>
+          </div>
+
+          <div class="action-row">
+            <button id="resetButton" type="button" class="button button--light">Reset Default</button>
+            <button type="submit" class="button button--primary">Save Changes</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast">Profile saved successfully.</div>
+
+  <script src="../JS/session.js?v=20260422-remove-switch-identity"></script>
+  <script src="../JS/modify.js?v=20260421-profile-db-sync"></script>
+</body>
+</html>
+

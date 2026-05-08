@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Heritage - Interactive Map</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/common.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Microsoft YaHei", "Segoe UI", serif;
+            background: #F8F5F0;
+            color: #3A2618;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            z-index: 2000;
+        }
+
+        .main-workspace {
+            position: relative;
+            width: 100vw;
+            height: calc(100vh - 70px);
+            margin-top: 80px;
+            background: #EBE1CE;
+            overflow: visible;
+            z-index: 2101;
+        }
+
+        .floating-panel,
+        .map-layer {
+            top: 20px;
+            bottom: 20px;
+        }
+
+        .map-layer {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            bottom: 15px;
+            left: 410px;
+            background: url('../Resources/image/map-bg.JPG') center/100% 100% no-repeat;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            z-index: 1;
+            overflow: visible;
+        }
+
+        .floating-panel {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            bottom: 15px;
+            width: 380px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .panel-header { padding: 20px; border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
+
+        .search-bar {
+            display: flex;
+            border: 2px solid #C41E3A;
+            border-radius: 25px;
+            overflow: hidden;
+            background: #fff;
+            margin-bottom: 15px;
+        }
+
+        .search-bar input {
+            border: none;
+            padding: 10px 15px;
+            width: 100%;
+            outline: none;
+        }
+
+        .search-bar button {
+            background: #C41E3A;
+            color: #fff;
+            border: none;
+            padding: 0 20px;
+            font-weight: bold;
+        }
+
+        .filter-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tag {
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 15px;
+            background: #F8F5F0;
+            border: 1px solid #D4AF37;
+            color: #3A2618;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .filter-tag:hover,
+        .filter-tag.active {
+            background: #C41E3A;
+            color: #fff;
+            border-color: #C41E3A;
+        }
+
+        .results-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .result-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .result-card:hover,
+        .result-card.active {
+            border-color: #C41E3A;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(196, 30, 58, 0.15);
+        }
+
+        .result-card img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .result-info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .result-info h6 {
+            margin: 0;
+            font-weight: bold;
+            color: #C41E3A;
+            font-size: 15px;
+            line-height: 1.35;
+        }
+
+        .result-info p {
+            margin: 0;
+            font-size: 12px;
+            color: #666;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .result-meta {
+            font-size: 11px;
+            color: #999;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .map-pin {
+            position: absolute;
+            z-index: 5;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pin-dot {
+            width: 16px;
+            height: 16px;
+            background: #C41E3A;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: 0.3s;
+        }
+
+        .pin-label {
+            margin-top: 4px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #D4AF37;
+            font-size: 11px;
+            font-weight: bold;
+            pointer-events: none;
+        }
+
+        .map-pin.active {
+            z-index: 20;
+            transform: scale(1.3) translateY(-5px);
+        }
+
+        .map-pin.active .pin-dot {
+            background: #D4AF37;
+            box-shadow: 0 0 15px #D4AF37;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
+        }
+
+        .info-window {
+            position: absolute;
+            width: 220px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 30;
+            padding: 10px;
+            pointer-events: auto;
+            cursor: pointer;
+            opacity: 0;
+            transform: translate(-50%, 20px);
+            transition: 0.3s;
+        }
+
+        .info-window.show {
+            opacity: 1;
+            transform: translate(-50%, -100%);
+            margin-top: -15px;
+        }
+
+        .info-window::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            margin-left: -8px;
+            border-width: 8px 8px 0;
+            border-style: solid;
+            border-color: #fff transparent transparent transparent;
+        }
+
+        .info-window img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .info-window h6 {
+            margin: 0 0 5px 0;
+            color: #C41E3A;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .info-window p {
+            margin: 0;
+            font-size: 11px;
+            color: #666;
+            display: none;
+        }
+
+        .detail-modal {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(27, 20, 14, 0.52);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            z-index: 2600;
+        }
+
+        .detail-modal.is-open {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .detail-modal-dialog {
+            position: relative;
+            width: min(720px, 100%);
+            max-height: calc(100vh - 48px);
+            overflow-y: auto;
+            padding: 24px;
+            border-radius: 20px;
+            background: #fffdf8;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+        }
+
+        .detail-modal-close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 999px;
+            background: rgba(196, 30, 58, 0.1);
+            color: #9C2331;
+            font-size: 24px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .detail-modal-close:hover {
+            background: rgba(196, 30, 58, 0.16);
+        }
+
+        .detail-cover {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 14px;
+            margin-bottom: 18px;
+            background: #F8F5F0;
+        }
+
+        .detail-title {
+            margin: 0 44px 10px 0;
+            color: #C41E3A;
+            font-size: 1.7rem;
+            line-height: 1.2;
+        }
+
+        .detail-description {
+            margin: 0;
+            color: #4F4336;
+            font-size: 0.98rem;
+            line-height: 1.75;
+            white-space: pre-wrap;
+        }
+
+        .detail-section {
+            margin-top: 22px;
+        }
+
+        .detail-section h4 {
+            margin: 0 0 10px;
+            font-size: 1rem;
+            color: #3A2618;
+        }
+
+        .detail-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .detail-gallery img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.28);
+            background: #F8F5F0;
+        }
+
+        .detail-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .detail-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 0 16px;
+            border: 1px solid rgba(196, 30, 58, 0.28);
+            border-radius: 999px;
+            background: #fff;
+            color: #9C2331;
+            font-size: 0.92rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .detail-link:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 16px rgba(196, 30, 58, 0.14);
+            background: #fff7f7;
+        }
+
+        .detail-empty {
+            color: #8C745A;
+            font-size: 0.88rem;
+        }
+
+        .detail-video-wrap {
+            margin-top: 16px;
+        }
+
+        .detail-video-wrap video {
+            width: 100%;
+            max-height: 320px;
+            border-radius: 14px;
+            background: #120E0A;
+        }
+
+        @media (max-width: 900px) {
+            .detail-modal {
+                padding: 16px;
+            }
+
+            .detail-modal-dialog {
+                padding: 18px;
+            }
+
+            .detail-cover {
+                height: 220px;
+            }
+        }
+
+        .map-legend {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #D4AF37;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            font-size: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container navbar">
+            <div class="logo">Heritage Platform</div>
+            <nav class="nav-menu">
+                <a href="home.html">Home</a>
+                <a href="search.html">Cultural Heritage</a>
+                <a href="resource.html">Community</a>
+                <a href="about.html">About Us</a>
+            </nav>
+            <div class="nav-actions">
+                <div class="user-menu-container">
+                    <img src="../Resources/image/IMG_1113.JPG" alt="User Profile" class="user-avatar">
+                    <ul class="dropdown-menu">
+                        <li><a href="modify.html">Edit Profile</a></li>
+                        <li><a href="submission.html">Application Management</a></li>
+                        <li><a href="contributor.html">Audit & Review</a></li>
+                        <li class="menu-divider"></li>
+                        <li><a href="welcome.html" class="logout-link">Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-workspace">
+        <div class="map-layer" id="mapLayer">
+            <div id="provincePins"></div>
+            <div class="info-window" id="infoWindow" tabindex="0" role="button" aria-label="Open heritage details">
+                <img src="../Resources/image/heritage1.JPG" id="infoImg" alt="Heritage Preview">
+                <h6 id="infoTitle">Heritage Title</h6>
+                <p id="infoDesc">Short description of the heritage site goes here...</p>
+            </div>
+        </div>
+
+        <div class="floating-panel">
+            <div class="panel-header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search places, crafts...">
+                    <button type="button">Go</button>
+                </div>
+                <div class="filter-tags">
+                    <span class="filter-tag active">All</span>
+                    <span class="filter-tag">Architecture</span>
+                    <span class="filter-tag">Crafts</span>
+                    <span class="filter-tag">Folktales</span>
+                    <span class="filter-tag">Relics</span>
+                </div>
+                <div class="d-flex justify-content-between mt-3 text-muted" style="font-size: 12px;">
+                    <span id="resultCount">Found 3 items</span>
+                    <span style="cursor: pointer;">Sort by: Relevance</span>
+                </div>
+            </div>
+
+            <div class="results-list" id="resultsList"></div>
+        </div>
+
+        <div class="map-legend">
+            <strong>Legend</strong>
+            <div class="legend-item"><div class="legend-color" style="background:#C41E3A;"></div> Heritage Site</div>
+            <div class="legend-item"><div class="legend-color" style="background:#D4AF37;"></div> Selected / Active</div>
+        </div>
+    </div>
+
+    <div class="detail-modal" id="detailModal" aria-hidden="true">
+        <div class="detail-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="detailModalTitle">
+            <button type="button" class="detail-modal-close" id="detailModalClose" data-detail-close aria-label="Close details">&times;</button>
+            <img src="../Resources/image/heritage1.JPG" id="detailModalImage" class="detail-cover" alt="Heritage cover">
+            <h3 class="detail-title" id="detailModalTitle">Heritage Title</h3>
+            <p class="detail-description" id="detailModalDescription">Detailed description of the heritage item.</p>
+
+            <section class="detail-section" id="detailImageSection" hidden>
+                <h4>More Images</h4>
+                <div class="detail-gallery" id="detailImageGallery"></div>
+            </section>
+
+            <section class="detail-section" id="detailPdfSection" hidden>
+                <h4>PDF Downloads</h4>
+                <div class="detail-links" id="detailPdfLinks"></div>
+            </section>
+
+            <section class="detail-section" id="detailVideoSection" hidden>
+                <h4>Videos</h4>
+                <div class="detail-links" id="detailVideoLinks"></div>
+                <div class="detail-video-wrap" id="detailVideoWrap" hidden>
+                    <video id="detailVideoPlayer" controls preload="metadata"></video>
+                </div>
+            </section>
+
+            <section class="detail-section" id="detailLinkSection" hidden>
+                <h4>External Link</h4>
+                <div class="detail-links" id="detailLinkLinks"></div>
+            </section>
+        </div>
+    </div>
+
+    <script src="../JS/session.js?v=20260422-remove-switch-identity"></script>
+    <script src="../JS/api.js?v=20260421-platform-sync"></script>
+    <script src="../JS/search.js?v=20260427-detail-modal-images"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

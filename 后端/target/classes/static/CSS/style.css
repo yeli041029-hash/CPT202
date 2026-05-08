@@ -1,0 +1,261 @@
+:root {
+    /* 登录主界面的原始配色系统 */
+    --bg-parchment: #fdf8ec; 
+    --card-inner: #fcf9f2;
+    --ink: #1a1a1a;
+    --heritage-red: #a3262a;
+    --gold-accent: #d4af37;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    height: 100vh;
+    background-color: #000; /* 初始黑色 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    perspective: 2000px;
+    font-family: 'Noto Serif', serif;
+    /* 背景色平滑过渡 */
+    transition: background-color 1.5s ease;
+}
+
+/* --- 1. 开场黑金水墨动画层 --- */
+#intro-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('../Resources/image/IMG_1074.JPG'); /* 请确保图片在此路径下 */
+    background-size: cover;
+    background-position: center;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1.2s ease-in-out;
+}
+
+#intro-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.5) 100%);
+}
+
+/* 3D 卷轴系统 */
+.scroll-system {
+    position: relative;
+    display: flex;
+    align-items: center;
+    z-index: 110;
+}
+
+/* 弯曲/非平行边缘纸张 */
+.scroll-paper {
+    height: 460px;
+    width: 0;
+    background: linear-gradient(135deg, #fffcf5 0%, #e8e2cf 100%);
+    position: relative;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+    overflow: hidden;
+    /* clip-path 创造不对称的非平行上下边缘 */
+    clip-path: polygon(0% 10%, 100% 0%, 100% 90%, 0% 100%);
+    animation: unfoldWave 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes unfoldWave {
+    to { 
+        width: 880px; 
+        clip-path: polygon(0% 12%, 100% 3%, 100% 88%, 0% 97%);
+    }
+}
+
+.roller {
+    width: 42px;
+    height: 540px;
+    background: linear-gradient(to right, #2a1b0a, #8c6d41 30%, #f2d2a4 50%, #8c6d41 70%, #2a1b0a);
+    border-radius: 20px;
+    position: absolute;
+    z-index: 120;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+}
+
+.roller.left { transform: translateX(-50%); animation: rollLeft 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.roller.right { transform: translateX(50%); animation: rollRight 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+@keyframes rollLeft { from { left: 50%; } to { left: calc(50% - 440px); } }
+@keyframes rollRight { from { right: 50%; } to { right: calc(50% - 440px); } }
+
+.quote-text {
+    width: 85%;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.1rem;
+    color: var(--ink);
+    line-height: 1.5;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: textReveal 1s ease 1.8s forwards;
+    font-style: italic;
+}
+
+@keyframes textReveal { to { opacity: 1; transform: translateY(0); } }
+
+/* --- 2. 登录/注册主卡片 --- */
+.main-card {
+    position: absolute;
+    display: flex;
+    width: 1100px;
+    height: 680px; /* 稍微调高以适应注册字段 */
+    background-color: var(--card-inner);
+    box-shadow: 0 60px 120px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: scale(0.92);
+    visibility: hidden;
+    transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: 10;
+}
+
+.main-card.active {
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+}
+
+.card-illustration {
+    flex: 1.4;
+    background-image: url('../Resources/image/IMG_1064.jpg'); /* 请确保图片在此路径下 */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.card-illustration::after {
+    content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+    background: linear-gradient(to right, transparent 80%, var(--card-inner));
+}
+
+.form-section {
+    flex: 1; padding: 60px;
+    display: flex; flex-direction: column; 
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.logo { 
+    position: absolute; top: 40px; left: 40px; 
+    font-family: 'Playfair Display', serif; color: var(--heritage-red); 
+    font-size: 38px; font-weight: bold; z-index: 20;
+    letter-spacing: 2px;
+}
+
+/* 内部视图容器动画 */
+.view-container {
+    width: 100%;
+    transition: all 0.5s ease;
+}
+
+.view-container.hidden {
+    display: none;
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.view-container.fade-in {
+    animation: formFade 0.6s forwards;
+}
+
+@keyframes formFade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    margin-bottom: 35px;
+    color: var(--ink);
+}
+
+.input-group { margin-bottom: 22px; }
+.input-group input {
+    width: 100%; padding: 15px; border: 1px solid var(--gold-accent);
+    background: transparent; outline: none; font-size: 15px;
+    transition: 0.3s;
+}
+.input-group input:focus { border-color: var(--heritage-red); background: white; }
+
+/* 验证码布局 */
+.captcha-row { display: flex; gap: 10px; }
+.captcha-btn {
+    background: none; border: 1px solid var(--gold-accent);
+    padding: 0 12px; color: var(--heritage-red);
+    cursor: pointer; font-size: 12px; font-weight: bold;
+    white-space: nowrap;
+}
+
+.identity-choice {
+    margin-bottom: 22px;
+    padding: 14px 16px;
+    border: 1px solid var(--gold-accent);
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.identity-choice-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.identity-choice-label input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--heritage-red);
+}
+
+.btn-enter {
+    width: 100%; padding: 18px; background: var(--ink);
+    color: white; border: none; font-size: 16px; cursor: pointer;
+    letter-spacing: 3px; font-weight: bold; transition: 0.4s;
+    margin-top: 5px;
+}
+.btn-enter:hover { background: var(--heritage-red); transform: translateY(-3px); }
+
+.switch-link {
+    text-align: center; margin-top: 25px; font-size: 14px; color: #777;
+}
+.switch-link span { 
+    color: var(--heritage-red); 
+    text-decoration: underline; 
+    cursor: pointer; 
+    font-weight: bold; 
+    margin-left: 5px;
+}
+
+.btn-enter[disabled] {
+    opacity: 0.7;
+    cursor: wait;
+    transform: none;
+}
+
+.inline-message {
+    min-height: 20px;
+    margin-top: 12px;
+    color: var(--heritage-red);
+    font-size: 13px;
+    line-height: 1.5;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.inline-message.is-visible {
+    opacity: 1;
+}

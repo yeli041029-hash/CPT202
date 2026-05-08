@@ -1,0 +1,441 @@
+/* =========================================
+   全局布局与间距优化
+   ========================================= */
+
+/* 设置所有主要区块的上下间距，让页面更有呼吸感 */
+.features, 
+.exhibition-3d{
+    padding: 6rem 0; /* 增加上下留白 */
+}
+
+/* 专门拉开第一个模块 (Features) 与上方 Banner 的距离 */
+.features {
+    padding-top: 100px; /* 确保不贴着 Banner 图 */
+}
+
+.section-title { 
+    text-align: center; 
+    font-size: 2.2rem; 
+    margin-bottom: 4rem; /* 标题与下方内容的间距 */
+    color: #C41E3A; 
+    font-weight: bold;
+}
+
+/* =========================================
+   Banner 区域
+   ========================================= */
+.banner { 
+    height: 60vh; 
+    background: url('../Resources/image/IMG_1111.JPG') center/cover no-repeat; 
+    position: relative; 
+}
+
+.banner-overlay { 
+    position: absolute; 
+    inset: 0; 
+    background: rgba(0, 0, 0, 0.4); 
+    display: flex; 
+    align-items: center; 
+    padding: 0 5rem; 
+}
+
+.banner-text { 
+    color: #fff; 
+    font-size: 2.5rem; 
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8); 
+    letter-spacing: 2px; 
+}
+
+/* =========================================
+   Features 区域 (调整为：扁平宽阔比例)
+   ========================================= */
+.features { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 2rem; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    
+    /* 1. 关键：增加顶部的外部间距，把这三个框整体向下挪 */
+    margin-top: 50px !important; 
+    
+    /* 2. 关键：增加底部的外部间距，拉开与下方标题的距离 */
+    margin-bottom: 100px; 
+    
+    padding: 0 20px; /* 保持左右内边距 */
+}
+
+.feature-link {
+    text-decoration: none !important;
+    color: inherit;
+    display: block; /* 撑满栅格 */
+}
+
+.feature-card { 
+    background: #fff; 
+    padding: 2.5rem 1.5rem; /* 稍微调高一点点高度，让比例更协调 */
+    border: 2px solid #D4AF37; 
+    border-radius: 12px; 
+    min-height: 200px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* 调整图标和文字的间距，配合扁平的框 */
+.feature-card i { 
+    font-size: 2.2rem; 
+    margin-bottom: 1rem; /* 减少图标下方的间距 */
+    display: block;
+}
+
+.feature-card h3 { 
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem; /* 减少标题下方的间距 */
+}
+
+.feature-card p { 
+    font-size: 0.95rem; 
+    line-height: 1.5; 
+    color: #555;
+    margin: 0;
+}
+
+/* 悬停效果 */
+.feature-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* =========================================
+   3D 展厅区域 - 强化美化版
+   ========================================= */
+.viewer-container {
+    display: flex;
+    background: #ffffff; /* 纯白背景突出质感 */
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+    border: 1px solid #f0f0f0;
+    overflow: hidden;
+    align-items: stretch;
+}
+
+.viewer-left {
+    position: relative;
+    width: 60%;
+    background: radial-gradient(circle, #ffffff 0%, #f9f9f9 100%); /* 渐变底座感 */
+}
+
+.viewer-left model-viewer {
+    width: 100%;
+    height: 500px; /* 稍微增加高度 */
+    outline: none;
+}
+
+/* 右侧文字信息区美化 */
+.viewer-info {
+    width: 40%;
+    padding: 60px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fffdfc;
+    border-left: 1px solid #f0f0f0;
+    position: relative;
+}
+
+/* 装饰性元素：标题上方的装饰短线 */
+.viewer-info::before {
+    content: "";
+    position: absolute;
+    top: 60px;
+    left: 50px;
+    width: 40px;
+    height: 4px;
+    background: #C41E3A; /* 使用你的宫墙红 */
+    border-radius: 2px;
+}
+
+.viewer-info h3 {
+    color: #2b1d1e;
+    font-size: 2rem;
+    margin-top: 15px; /* 为上方装饰线留出空间 */
+    margin-bottom: 20px;
+    font-family: 'Noto Serif SC', serif; /* 建议使用衬线体更有历史感 */
+    letter-spacing: 1px;
+}
+
+.viewer-info #modelDesc {
+    color: #555;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    text-align: justify; /* 两端对齐 */
+}
+
+/* 交互提示框美化 */
+.viewer-info p strong {
+    display: block;
+    color: #C41E3A;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.viewer-info p:last-child {
+    background: #fdf6f0; /* 极淡的暖黄色背景 */
+    padding: 15px 20px;
+    border-radius: 8px;
+    border-left: 3px solid #D4AF37; /* 金色边框提示线 */
+    font-size: 0.9rem;
+    color: #887;
+    line-height: 1.6;
+}
+
+/* =========================================
+   3D 展厅 - 导航箭头美化版
+   ========================================= */
+
+/* 通用按钮样式 */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 54px;
+    height: 54px;
+    
+    /* 1. 磨砂玻璃效果 */
+    background-color: rgba(255, 255, 255, 0.7); 
+    backdrop-filter: blur(8px);
+    
+    /* 2. 边框与阴影 */
+    border: 1px solid rgba(212, 175, 55, 0.3); /* 淡淡的金色边框 */
+    color: #C41E3A; /* 宫墙红箭头 */
+    border-radius: 50%;
+    
+    /* 3. 字体与布局 */
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* 4. 动画过渡 */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 带有弹性感的过渡 */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+/* 悬停时的华丽转变 */
+.nav-btn:hover {
+    background-color: #C41E3A; /* 变成宫墙红背景 */
+    color: #ffffff;            /* 箭头变白色 */
+    border-color: #C41E3A;
+    box-shadow: 0 8px 25px rgba(196, 30, 58, 0.3); /* 红色发光阴影 */
+    transform: translateY(-50%) scale(1.15); /* 稍微变大 */
+}
+
+/* 点击时的反馈 */
+.nav-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+/* 按钮位置微调 */
+.prev-btn { 
+    left: 25px; 
+}
+
+.next-btn { 
+    right: 25px; 
+}
+
+/* 针对箭头符号的微调（如果是字符图标，可以稍微调整偏移确保视觉居中） */
+.prev-btn::after {
+    content: '';
+    margin-right: 2px;
+}
+
+.next-btn::after {
+    content: '';
+    margin-left: 2px;
+}
+
+.viewer-info {
+    width: 40%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* =========================================
+   Heritage Recommendations (社区遗产)
+   ========================================= */
+.heritage-recommend { 
+    /* 1. 增加 padding-bottom，确保内容和页面底部/页脚之间有充足的呼吸空间 */
+    padding-top: 4rem;
+    padding-bottom: 150px; /* 这里可以根据需要调整，数值越大空白越多 */
+}
+
+.heritage-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 2.5rem; 
+    /* 也可以在这里增加一点底部间距 */
+    margin-bottom: 50px; 
+}
+
+/* 保持你之前的卡片样式不变... */
+.heritage-card { 
+    background: #fff; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.heritage-card:hover { 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15); 
+    transform: translateY(-8px); 
+}
+
+.heritage-card img { 
+    width: 100%; 
+    height: 220px; 
+    object-fit: cover; 
+    transition: transform 0.6s ease;
+}
+
+.heritage-card:hover img {
+    transform: scale(1.1);
+}
+
+.heritage-info { 
+    padding: 1.5rem; 
+}
+
+/* =========================================
+   古代模式 (Ancient Theme)
+   ========================================= */
+body.ancient-theme {
+    background-color: #f4e8d3; 
+    background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h10v10H0z" fill="%23e8dcc4" fill-opacity="0.4"/></svg>');
+    font-family: 'Noto Serif', 'STSong', 'KaiTi', serif;
+    color: #2b1d1e;
+}
+
+body.ancient-theme .heritage-card,
+body.ancient-theme .feature-card {
+    background-color: #fffdf8;
+    border: 1px solid #8b0000;
+    box-shadow: 4px 4px 0px rgba(139, 0, 0, 0.1);
+}
+
+body.ancient-theme h2, 
+body.ancient-theme h3, 
+body.ancient-theme h4 {
+    color: #8b0000;
+}
+
+body.ancient-theme img {
+    filter: sepia(0.6) contrast(1.1) brightness(0.9);
+}
+
+/* =========================================
+   视频弹窗 (Video Modal)
+   ========================================= */
+.video-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.4s ease;
+}
+
+.modal-content {
+    position: relative;
+    width: 80%;
+    max-width: 900px;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    transform: scale(0.8);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.video-modal.active .modal-content {
+    transform: scale(1);
+}
+
+#modalVideo {
+    width: 100%;
+    display: block;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    color: #fff;
+    font-size: 40px;
+    cursor: pointer;
+    z-index: 10001;
+}
+
+/* =========================================
+   导航栏滚动特效
+   ========================================= */
+header {
+    transition: all 0.4s ease;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+header.scrolled {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    padding: 5px 0;
+}
+
+/* =========================================
+   动画初始状态 (Scroll Reveal)
+   ========================================= */
+.feature-card, .heritage-card, .exhibition-3d {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+footer {
+    margin-top: 50px; /* 页脚距离上方内容的距离 */
+    background: #3A2618; 
+    color: #fff;
+    padding: 3rem 0;
+}
+
+.section-title {
+    /* 3. 关键：给下方的红字标题增加顶部边距，确保它不贴着上面的框 */
+    margin-top: 40px; 
+    margin-bottom: 50px; /* 标题和 3D 模型之间的间距 */
+    font-size: 2.4rem;
+    color: #C41E3A;
+}

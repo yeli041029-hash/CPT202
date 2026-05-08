@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heritage - The Wisdom of History</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/style.css?v=20260420-profile-sync">
+</head>
+<body>
+
+    <div id="intro-overlay">
+        <div class="scroll-system">
+            <div class="roller left"></div>
+            <div class="scroll-paper">
+                <p class="quote-text">
+                    "Those who cannot remember the past are condemned to repeat it."
+                </p>
+            </div>
+            <div class="roller right"></div>
+        </div>
+    </div>
+
+    <div class="main-card" id="mainCard">
+        <div class="logo">COMMUNITY HERITAGE</div>
+        <div class="card-illustration"></div>
+
+        <div class="form-section">
+            <div id="loginView" class="view-container fade-in">
+                <h2 class="form-title">Welcome Back</h2>
+                <div class="input-group">
+                    <input type="text" id="loginIdentity" placeholder="Username/Email">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="loginPassword" placeholder="Passcode">
+                </div>
+                <button id="loginBtn" type="button" class="btn-enter" onclick="handleLoginClick(event)">Log In</button>
+                <div class="switch-link">
+                    New Archivist? <span onclick="toggleMode('register')">Sign Up</span>
+                </div>
+            </div>
+
+            <div id="registerView" class="view-container hidden">
+                <h2 class="form-title">Join the Guild</h2>
+                <div class="input-group">
+                    <input type="text" id="registerUsername" placeholder="Username">
+                </div>
+                <div class="input-group">
+                    <input type="email" id="registerEmail" placeholder="Email">
+                </div>
+                <div class="input-group">
+                    <input type="tel" id="registerPhone" placeholder="Phone Number">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="registerPassword" placeholder="New Password (6-12 chars)">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="registerConfirmPassword" placeholder="Confirm Password">
+                </div>
+                <div class="identity-choice">
+                    <label class="identity-choice-label">
+                        <input type="checkbox" id="registerAsAdmin">
+                        <span>Register as Administrator</span>
+                    </label>
+                </div>
+                <button id="registerBtn" type="button" class="btn-enter" onclick="handleRegisterClick(event)">CREATE ACCOUNT</button>
+                <div id="registerInlineMessage" class="inline-message" aria-live="polite"></div>
+                <div class="switch-link">
+                    Already a member? <span onclick="toggleMode('login')">Back to Sign In</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../JS/api.js?v=20260420-profile-sync"></script>
+    <script src="../JS/session.js?v=20260422-remove-switch-identity"></script>
+    <script src="../JS/script.js?v=20260422-register-login-flow"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

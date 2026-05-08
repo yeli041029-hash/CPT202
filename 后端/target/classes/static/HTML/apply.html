@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become a Digital Guardian - Heritage Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/common.css">
+    <link rel="stylesheet" href="../CSS/apply.css">
+</head>
+<body>
+    
+    <!-- 高级感悬浮返回键 (取代了原来的抬头) -->
+    <a href="home.html" class="premium-back-btn">
+        <div class="btn-inner">
+            <span class="btn-arrow">&larr;</span>
+            <span class="btn-text">RETURN</span>
+        </div>
+        <div class="btn-bg"></div>
+    </a>
+
+    <main class="apply-container">
+        <!-- 背景装饰元素 -->
+        <div class="bg-pattern"></div>
+
+        <section class="apply-card">
+            <div class="apply-header">
+                <p class="eyebrow">Contributor Onboarding</p>
+                <h1>Apply to be a Digital Guardian</h1>
+                <p class="subtitle">Join our elite circle of historians, researchers, and digital archivists.</p>
+            </div>
+
+            <form id="applicationForm" class="modern-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Legal Full Name</label>
+                        <input type="text" id="fullName" placeholder="e.g. Lynn Rowan" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Expertise Domain</label>
+                        <select id="domain" required>
+                            <option value="" disabled selected>Select your field...</option>
+                            <option value="Text Editing">Text Editing & Calligraphy</option>
+                            <option value="Historical Proofreading">Historical Proofreading</option>
+                            <option value="Image Annotation">Image & 3D Annotation</option>
+                            <option value="Oral History">Oral History Processing</option>
+                            <option value="Media Upload">Multimedia Archiving</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Portfolio or Professional Link (Optional)</label>
+                    <input type="url" id="portfolio" placeholder="https://linkedin.com/in/yourprofile">
+                </div>
+
+                <div class="form-group">
+                    <label>Motivation Statement</label>
+                    <textarea id="reason" rows="5" placeholder="Why do you wish to contribute to the preservation of digital heritage?" required></textarea>
+                </div>
+
+                <div class="form-agreement">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I solemnly pledge to maintain the authenticity and integrity of all historical data I process.</label>
+                </div>
+                <div id="termsWarning" style="display:none; margin-top:8px; color:#C41E3A; font-size:0.82rem;">Please confirm the declaration before continuing.</div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">
+                        <span class="btn-text">Send Application</span>
+                        <span class="btn-icon">&rarr;</span>
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <div id="toast" class="toast">Your application has been sent to the elders.</div>
+
+    <script src="../JS/api.js?v=20260421a"></script>
+    <script src="../JS/session.js?v=20260422-remove-switch-identity"></script>
+    <script src="../JS/apply.js?v=20260421-english-validation"></script>
+</body>
+</html>
+
+
+
+
+
+
+

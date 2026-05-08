@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contributor Onboarding &amp; Permissions Console</title>
+  <link rel="stylesheet" href="../CSS/contributor.css">
+</head>
+<body>
+  <div class="console-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <p class="brand__tag">Module 02</p>
+        <h1>Contributor Console</h1>
+        <p class="brand__text">Contributor Onboarding &amp; Permissions Console</p>
+      </div>
+
+      <nav class="nav">
+        <button class="nav__item is-active" type="button" data-module="overview">Onboarding Setup</button>
+        <button class="nav__item" type="button" data-module="review">Review Queue</button>
+        <button class="nav__item" type="button" data-module="permission">Permission Control</button>
+        <button class="nav__item" type="button" data-module="workspace">Right Workspace</button>
+      </nav>
+
+      <section class="sidebar-card">
+        <p class="sidebar-card__label">Scope</p>
+        <span>Normal user application</span>
+        <span>Admin approve / reject</span>
+        <span>Application status tracking</span>
+        <span>Contributor permission revocation</span>
+      </section>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Admin Console View</p>
+          <h2>Contributor Onboarding &amp; Permissions Console</h2>
+          <p class="topbar__text">Manage contributor applications, review actions, and permission revocation from a centralized admin workspace.</p>
+        </div>
+
+        <div class="topbar__meta">
+            <button id="backButton" type="button" class="button button--back" onclick="window.location.href='home.html'">Back</button>
+          <div class="meta-card">
+            <span>Data Status</span>
+            <strong id="storageStatus">Cache Loaded</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="overview" id="overviewGrid" data-module-panel="overview"></section>
+
+      <section class="dashboard">
+        <div class="column column--wide">
+          <section class="panel" id="reviewQueuePanel" data-module-panel="review">
+            <div class="panel__head">
+              <div>
+                <p class="panel__tag">Review Queue</p>
+                <h3>Pending Applications</h3>
+              </div>
+              <span id="pendingBadge" class="badge">0 Pending</span>
+            </div>
+
+            <div class="table-wrap">
+              <table class="queue-table">
+                <thead>
+                  <tr>
+                    <th>Applicant</th>
+                    <th>Domain</th>
+                    <th>Submitted At</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="queueTableBody"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel" id="permissionControlPanel" data-module-panel="permission">
+            <div class="panel__head">
+              <div>
+                <p class="panel__tag">Submission Review</p>
+                <h3>Contributor File Review</h3>
+              </div>
+            </div>
+
+            <div id="contributorRegistry" class="registry"></div>
+          </section>
+        </div>
+
+        <div class="column">
+          <section class="panel tabs-panel" id="workspacePanel" data-module-panel="workspace">
+            <div class="panel__head panel__head--tabs">
+              <div>
+                <p class="panel__tag">Right Workspace</p>
+                <h3>Management Panel</h3>
+              </div>
+            </div>
+
+            <div class="tab-bar" id="tabBar">
+              <button class="tab-button is-active" type="button" data-tab="review">Review Actions</button>
+              <button class="tab-button" type="button" data-tab="log">Activity Logs</button>
+            </div>
+
+            <div class="tab-content">
+              <section class="tab-pane is-active" data-pane="review">
+                <div id="submissionReviewPanel" class="submission-review-panel"></div>
+                <div id="reviewSummary" class="review-summary"></div>
+
+                <form id="reviewForm" class="stack-form">
+                  <label class="field">
+                    <span>Review Feedback</span>
+                    <textarea id="reviewFeedback" rows="4" placeholder="Enter review comments or rejection reason"></textarea>
+                  </label>
+
+                  <div class="actions actions--split">
+                    <button id="rejectButton" type="submit" data-action="reject" class="button button--danger" disabled>Reject Application</button>
+                    <button id="approveButton" type="submit" data-action="approve" class="button button--primary" disabled>Approve Application</button>
+                  </div>
+                </form>
+              </section>
+
+              <section class="tab-pane" data-pane="log">
+                <div id="activityLog" class="log-list"></div>
+              </section>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="../JS/api.js?v=20260421-role-sync"></script>
+  <script src="../JS/session.js?v=20260422-remove-switch-identity"></script>
+  <script src="../JS/contributor.js?v=20260421-multi-upload"></script>
+</body>
+</html>
+
+
+
+
+
+
+
